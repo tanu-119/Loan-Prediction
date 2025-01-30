@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loan Risk Prediction</title>
+  <style>
+    body {
+      font-family: Poppins;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background-color: #f7f7f7;
+    }
+
+    header {
+      background-color: white;
+      padding: 10px;
+      color: #1075da;
+    }
+
+    .title {
+      font-size: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      padding-left: 20px;
+      margin: 15px;
+      margin-bottom: 5px;
+    }
+
+    .container {
+      display: flex;
+      padding: 30px;
+      margin-top: 20px;
+      margin-left: 20px;
+      margin-right: 20px;
+      background-color: #cce6ff;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      flex-direction: column;
+    }
+
+    .card {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .content-title {
+      font-size: 54px;
+      font-weight: 700;
+      line-height: 52px;
+      margin-bottom: 24px;
+      max-width: 10em;
+      margin: 0 auto;
+    }
+
+    .content {
+      font-size: 22px;
+      line-height: 28px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .prediction-button {
+      padding: 20px 30px;
+      background-color: #1a90ff;
+      color: white;
+      font-weight: 700;
+      font-size: 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .prediction-button:hover {
+      background-color: #2584dd;
+    }
+
+    .prediction-button:active {
+      background-color: #0544f1;
+    }
+
+    .details {
+      display: flex;
+      flex-direction: column;
+      padding: 30px;
+      margin-top: 20px;
+    }
+
+    .details-title {
+      font-weight: 700;
+      font-size: 30px;
+      text-align: center;
+      padding-top: 10px;
+      margin-bottom: 10px;
+      margin-top: 10px;
+    }
+
+    .details-content {
+      font-size: 20px;
+      width: 100%;
+      text-align: center;
+    }
+    .arrow-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0 auto; /* Centers the entire list */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Ensures all items start at the center */
+  text-align: left;
+  width: fit-content;
+}
+
+.arrow-list li {
+  position: relative;
+  font-size: 20px;
+  line-height: 28px;
+  margin-bottom: 10px;
+  padding-left: 40px; /* Space for the arrow */
+  display: flex;
+  
+  width: 250px; /* Ensures all items have the same width for consistency */
+}
+
+.arrow-list li::before {
+  content: '→';
+  position: absolute;
+  left: 0; /* Aligns all arrows at the same spot */
+  font-size: 22px;
+  color: #1075da;
+}
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+
+      .content-title {
+        font-size: 36px;
+        line-height: 40px;
+      }
+
+      .content {
+        font-size: 18px;
+      }
+
+      .prediction-button {
+        font-size: 18px;
+        padding: 15px 25px;
+      }
+
+      .details-title {
+        font-size: 26px;
+      }
+
+      .details-content {
+        font-size: 18px;
+      }
+      .arrow-list {
+    width: fit-content;
+     }
+
+     .arrow-list li {
+    font-size: 18px;
+    width: 220px; /* Adjust width for smaller screens */
+  }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 15px;
+      }
+
+      .content-title {
+        font-size: 28px;
+      }
+
+      .content {
+        font-size: 16px;
+      }
+
+      .prediction-button {
+        font-size: 16px;
+        padding: 12px 20px;
+      }
+
+      .details-title {
+        font-size: 22px;
+      }
+
+      .details-content {
+        font-size: 16px;
+      }
+      .arrow-list {
+    width: 100%;
+  }
+  .arrow-list li {
+    font-size: 16px;
+    width: 200px; /* Further adjustment for mobile devices */
+  }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <p class="title">Loan Risk Prediction</p>
+  </header>
+
+  <div class="container">
+      <div class="card">
+          <p class='content-title'>Unlock Smarter Loan Approvals with AI</p>
+          <p class='content'>
+            Welcome to our Loan Prediction Machine Learning Project, where we leverage the power of artificial intelligence to predict loan approvals with accuracy and speed. Whether you’re a bank, loan provider, or financial institution, our AI-driven solution helps make informed decisions, reducing risk and improving loan approval processes.
+          </p>
+          <div class='prediction-button-container'>
+             <button class='prediction-button' onclick="window.location.href='/form'">Get Loan Prediction</button>
+          </div>
+      </div>
+  </div>
+
+  <div class="details">
+    <p class="details-title">How It Works</p>
+    <p class="details-content">Our loan prediction model uses advanced machine learning algorithms to analyze a variety of factors that influence loan approval, such as:</p>
+    <ul class="arrow-list">
+        <li>Income & Employment Status</li>
+        <li>Loan Amount</li>
+        <li>Credit Score & History</li>
+        <li>Loan Purpose</li>
+        <li>Previous Loan Repayments</li>
+    </ul>  
+  </div>
+
+  <div class="details">
+    <p class="details-title">Ready to Enhance Your Loan Approval System?</p>
+    <p class="details-content">Take the next step towards smarter, more efficient loan processing with our Loan Prediction Machine Learning Model.</p>
+  </div>
+
+</body>
+</html>

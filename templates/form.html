@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Risk Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .form-container {
+            max-width: 500px;
+            margin: auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-weight:600; /* Makes labels bold */
+            display: block;
+            font-size: 15px;
+            color: #5e6164;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .prediction-result {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+            padding: 50px;
+            border-radius: 8px;
+            background-color: #e3f2fd;
+            border: 1px solid #90caf9;
+        }
+        .form-hidden {
+            display: none;
+        }
+        h2{
+            text-align: center;
+        }
+
+        
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 20px;
+                max-width: 90%;
+            }
+            .prediction-result {
+                padding: 30px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            .form-container {
+                padding: 15px;
+                max-width: 100%;
+            }
+            .prediction-result {
+                padding: 20px;
+                font-size: 16px;
+            }
+            button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        {% if not result %}
+        <h2>Loan Risk Prediction</h2>
+        <form id="predictionForm" action="/predict" method="POST">
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required>
+
+            <label for="income">Income:</label>
+            <input type="number" id="income" name="income" required>
+
+            <label for="home">Home Ownership:</label>
+            <select id="home" name="home" required>
+                <option value="Own">Own</option>
+                <option value="Mortgage">Mortgage (Paying Off Home Loan)</option>
+                <option value="Rent">Rent</option>
+            </select>
+
+            <label for="emp_length">Employment Length (years):</label>
+            <input type="number" id="emp_length" name="emp_length" required>
+
+            <label for="intent">Loan Purpose:</label>
+            <select id="intent" name="intent" required>
+                <option value="Education">Education</option>
+                <option value="Home Improvement">Home Improvement</option>
+                <option value="Debt Consolidation">Debt Consolidation</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label for="amount">Loan Amount:</label>
+            <input type="number" id="amount" name="amount" required>
+
+            <label for="cred_length">Credit Length (years):</label>
+            <input type="number" id="cred_length" name="cred_length" required>
+
+            <label for="rate">Interest Rate (E.g., 5% as 5.0):</label>
+            <input type="number" step="0.01" id="rate" name="rate" required>
+
+            <button type="submit">Predict Risk</button>
+        </form>
+        {% else %}
+        <div class="prediction-result">
+            <h3>Prediction Result:</h3>
+            <p>
+                {% if result == "Approved" %}
+                    ✅ Loan Approved! 🎉
+                {% else %}
+                    ❌ Loan Denied. 😞
+                {% endif %}
+            </p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
