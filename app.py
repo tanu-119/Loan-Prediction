@@ -50,6 +50,7 @@ def predict():
         'Cred_length': cred_length,
         'Rate': rate
     }], columns=feature_names)
+    input_data[['Income', 'Amount', 'Rate']] = scaler.transform(input_data[['Income', 'Amount', 'Rate']])
 
     # Predict the risk of the loan
     prediction = model.predict(input_data)
