@@ -51,8 +51,8 @@ def predict():
         'Rate': rate
     }], columns=feature_names)
 
-    input_data['Home'] = le_home.fit_transform(input_data['Home'])
-    input_data['Intent'] = le_intent.fit_transform(input_data['Intent'])
+    input_data[['Income', 'Amount', 'Rate']] = scaler.transform(input_data[['Income', 'Amount', 'Rate']])
+
 
     # Predict the risk of the loan
     prediction = model.predict(input_data)
