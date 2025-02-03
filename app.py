@@ -51,6 +51,8 @@ def predict():
         'Rate': rate
     }], columns=feature_names)
 
+    input_data[['Income', 'Amount','Rate']] = scaler.fit_transform(input_data[['Income', 'Amount','Rate']])
+
     # Predict the risk of the loan
     prediction = model.predict(input_data)
     result = "Approved" if prediction[0] == 1 else "Denied"
