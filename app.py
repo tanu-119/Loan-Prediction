@@ -2,7 +2,7 @@ from flask import Flask, request, render_template
 import pickle
 import numpy as np 
 import pandas as pd
-from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import OrdinalEncoder 
 
 app = Flask(__name__) 
 model = pickle.load(open('model.pkl', 'rb'))
@@ -20,7 +20,7 @@ def predict():
         Education = request.form.get('Education')
         Self_Employed = request.form.get('Self_Employed')  
         ApplicantIncome = int(request.form.get('ApplicantIncome'))  
-        CoapplicantIncome = float(request.form.get('CoapplicantIncome')) 
+        CoapplicantIncome = int(request.form.get('CoapplicantIncome')) 
         LoanAmount = float(request.form.get('LoanAmount'))   
         Loan_Amount_Term = int(request.form.get('Loan_Amount_Term'))   
         Credit_History = float(request.form.get('Credit_History'))   
@@ -29,6 +29,9 @@ def predict():
         # Create input array
         test_data = [[Gender, Married, Education, Self_Employed, ApplicantIncome,
                       CoapplicantIncome, LoanAmount, Loan_Amount_Term, Credit_History, Property_Area]]  
+        ord_enc = OrdinalEncoder()
+        test_data[["Gender",'Married','Education','Self_Employed','Property_Area','Loan_Status']] = ord_enc.fit_transform(test_data[["Gender",'Married','Education','Self_Employed','Property_Area','Loan_Status']])
+        test_data[["Gender",'Married','Education','Self_Employed','Property_Area','Loan_Status','CoapplicantIncome','LoanAmount','Loan_Amount_Term','Credit_History']] = test_data[["Gender",'Married','Education','Self_Employed','Property_Area','Loan_Status','CoapplicantIncome','LoanAmount','Loan_Amount_Term','Credit_History']].astype('int')
 
         # Predict
         prediction = model.predict(test_data)
