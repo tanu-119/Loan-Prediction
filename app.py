@@ -27,7 +27,6 @@ def predict():
         Property_Area = request.form.get('Property_Area')  
         test_data = [[Gender, Married, Education, Self_Employed, ApplicantIncome,CoapplicantIncome, LoanAmount, Loan_Amount_Term, Credit_History,Property_Area] ]  
         result = model.predict(test_data) 
-
     return render_template('form.html', result=result) 
 
 if __name__ == '__main__': 
