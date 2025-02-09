@@ -1,64 +1,32 @@
 from flask import Flask, request, render_template
 import pickle
+import numpy as np 
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 
-# Initialize the Flask app
-app = Flask(__name__)
+app = Flask(__name__) 
+model = pickle.load(open('model.pkl', 'rb'))
+@app.route('/') 
+def home(): 
+    return render_template('index.html') 
+@app.route('/predict/', methods=['GET', 'POST'])
 
-# Load the pre-trained model and scaler
-model = pickle.load(open('loan_risk_model.pkl', 'rb'))
-scaler = pickle.load(open('scaler.pkl', 'rb'))  # Load the pre-trained scaler
-le_home = LabelEncoder()
-le_intent = LabelEncoder()
+def predict():  
+    if request.method == 'POST': 
+        Gender = request.form.get('Gender')
+        Married = request.form.get('Married')
+        Education = request.form.get('Education')
+        Self_Employed = request.form.get('Self_Employed')  
+        ApplicantIncome = request.form.get('ApplicantIncome')  
+        CoapplicantIncome = request.form.get('CoapplicantIncome') 
+        LoanAmount = request.form.get('LoanAmount')   
+        Loan_Amount_Term = request.form.get('Loan_Amount_Term')   
+        Credit_History = request.form.get('Credit_History')   
+        Property_Area = request.form.get('Property_Area')  
+        test_data = [[Gender, Married, Education, Self_Employed, ApplicantIncome,CoapplicantIncome, LoanAmount, Loan_Amount_Term, Credit_History,Property_Area] ]  
+        prediction = model.predict(test_data) 
 
-# Column names to match the model's input format
-feature_names = ['Age', 'Income', 'Home', 'Emp_length', 'Intent', 'Amount', 'Cred_length', 'Rate']
+    return render_template('predict.html', prediction=prediction) 
 
-@app.route('/')
-def home():
-    return render_template('index.html')  # Display the index page initially
-
-@app.route('/form')
-def form():
-    return render_template('form.html')  # Display the form page when the user clicks on "Get Loan Prediction"
-
-@app.route('/predict', methods=['POST'])
-def predict():
-    # Get data from the form
-    age = int(request.form['age'])
-    income = float(request.form['income'])
-    home = request.form['home']
-    emp_length = int(request.form['emp_length'])
-    intent = request.form['intent']
-    amount = float(request.form['amount'])
-    rate = float(request.form['rate'])
-    cred_length = int(request.form['cred_length'])
-
-    # Encode 'Home' and 'Intent' using label encoders
-    home_encoded = le_home.fit_transform([home])[0]
-    intent_encoded = le_intent.fit_transform([intent])[0]
-
-    # Create a DataFrame with the user's input
-    input_data = pd.DataFrame([{
-        'Age': age,
-        'Income': income,
-        'Home': home_encoded,
-        'Emp_length': emp_length,
-        'Intent': intent_encoded,
-        'Amount': amount,
-        'Cred_length': cred_length,
-        'Rate': rate
-    }], columns=feature_names)
-
-    input_data[['Income', 'Amount','Rate']] = scaler.fit_transform(input_data[['Income', 'Amount','Rate']])
-
-    # Predict the risk of the loan
-    prediction = model.predict(input_data)
-    result = "Approved" if prediction[0] == 1 else "Denied"
-
-    # Return the result to the form page
-    return render_template('form.html', result=result)
-
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == '__main__': 
+    app.run(debug=True) 
