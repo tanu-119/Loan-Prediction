@@ -4,242 +4,473 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Loan Risk Prediction</title>
-  <style>
-    body {
-      font-family: Poppins;
+   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+    * {
       margin: 0;
       padding: 0;
-      height: 100vh;
-      background-color: #f7f7f7;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #f9fafc;
+      color: #2c3e50;
+      line-height: 1.6;
+      scroll-behavior: smooth;
     }
 
     header {
-      background-color: white;
-      padding: 10px;
-      color: #1075da;
-    }
-
-    .title {
-      font-size: 25px;
-      font-weight: bold;
-      cursor: pointer;
-      padding-left: 20px;
-      margin: 15px;
-      margin-bottom: 5px;
-    }
-
-    .container {
+      background: linear-gradient(90deg, #1e3c72, #2a5298); 
+      padding: 20px 40px;
+      color: white;
       display: flex;
-      padding: 30px;
-      margin-top: 20px;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
       margin-left: 20px;
-      margin-right: 20px;
-      background-color: #cce6ff;
-      border-radius: 5px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      flex-direction: column;
+      font-weight: 500;
+      transition: opacity 0.3s;
+    }
+
+    nav a:hover {
+      opacity: 0.85;
+    }
+
+    /* Hero */
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding: 80px 10%;
+      background: linear-gradient(135deg, #eef5ff, #ffffff);
+    }
+
+    .hero-text {
+      flex: 1 1 500px;
+      padding-right: 30px;
+      animation: fadeInLeft 1s ease;
+    }
+
+    .hero-text h1 {
+      font-size: 48px;
+      font-weight: 700;
+      color: #1e3c72;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .hero-text p {
+      font-size: 18px;
+      margin-bottom: 30px;
+      color: #444;
+    }
+
+    .hero img {
+      flex: 1 1 400px;
+      max-width: 480px;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .btn-primary {
+      padding: 15px 35px;
+      background: linear-gradient(90deg, #2a5298, #1e8f92); 
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(42, 82, 152, 0.25);
+    }
+
+    /* Section */
+    .section {
+      padding: 70px 10%;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease;
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section h2 {
+      font-size: 34px;
+      font-weight: 700;
+      color: #1e3c72;
+      margin-bottom: 20px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
     }
 
     .card {
-      padding: 20px;
-      text-align: center;
+      background: white;
+      padding: 30px 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
     }
 
-    .content-title {
-      font-size: 54px;
-      font-weight: 700;
-      line-height: 52px;
-      margin-bottom: 24px;
-      max-width: 10em;
-      margin: 0 auto;
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 22px rgba(0,0,0,0.1);
     }
 
-    .content {
+    .card h3 {
       font-size: 22px;
-      line-height: 28px;
-      margin-bottom: 24px;
+      font-weight: 600;
+      color: #2a5298;
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      font-size: 16px;
+      color: #555;
+    }
+
+    /* Stats */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      background: #fff;
+      padding: 25px 40px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+      font-size: 24px;
+      font-weight: 700;
+      color: #1e8f92; 
       text-align: center;
     }
 
-    .prediction-button {
-      padding: 20px 30px;
-      background-color: #1a90ff;
-      color: white;
-      font-weight: 700;
-      font-size: 20px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s;
+    .stat span {
+      display: block;
+      font-size: 18px;
+      font-weight: 500;
+      color: #444;
+      margin-top: 8px;
     }
 
-    .prediction-button:hover {
-      background-color: #2584dd;
-    }
-
-    .prediction-button:active {
-      background-color: #0544f1;
-    }
-
-    .details {
+    /* Contact */
+    .contact form {
+      max-width: 600px;
+      margin: 30px auto 0;
       display: flex;
       flex-direction: column;
-      padding: 30px;
-      margin-top: 20px;
+      gap: 15px;
     }
 
-    .details-title {
+    .contact input, .contact textarea {
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .contact input:focus, .contact textarea:focus {
+      border-color: #2a5298;
+    }
+
+    .contact button {
+      background: #1e3c72;
+      color: white;
+      border: none;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .contact button:hover {
+      background: #2a5298;
+    }
+
+    footer {
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: white;
+      padding: 50px 10% 20px;
+    }
+
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 40px;
+      margin-bottom: 30px;
+    }
+
+    .footer-col h3 {
+      font-size: 22px;
+      margin-bottom: 15px;
       font-weight: 700;
-      font-size: 30px;
-      text-align: center;
-      padding-top: 10px;
-      margin-bottom: 10px;
+    }
+
+    .footer-col h4 {
+      font-size: 18px;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .footer-col p {
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-col ul li {
+      margin: 8px 0;
+    }
+
+    .footer-col ul li a {
+      color: #e0e0e0;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-col ul li a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+
+    .socials {
+      display: flex;
+      gap: 12px;
       margin-top: 10px;
     }
 
-    .details-content {
-      font-size: 20px;
-      width: 100%;
+    .socials a img {
+      width: 28px;
+      height: 28px;
+      transition: transform 0.3s, filter 0.3s;
+    }
+
+    .socials a:hover img {
+      transform: scale(1.2);
+      filter: brightness(1.1);
+    }
+
+    .footer-bottom {
       text-align: center;
+      padding-top: 15px;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      font-size: 14px;
+      opacity: 0.85;
     }
-    .arrow-list {
-  list-style-type: none;
-  padding-left: 0;
-  margin: 0 auto; /* Centers the entire list */
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Ensures all items start at the center */
-  text-align: left;
-  width: fit-content;
-}
 
-.arrow-list li {
-  position: relative;
-  font-size: 20px;
-  line-height: 28px;
-  margin-bottom: 10px;
-  padding-left: 40px; /* Space for the arrow */
-  display: flex;
-  
-  width: 250px; /* Ensures all items have the same width for consistency */
-}
+    /* Animations */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
 
-.arrow-list li::before {
-  content: '→';
-  position: absolute;
-  left: 0; /* Aligns all arrows at the same spot */
-  font-size: 22px;
-  color: #1075da;
-}
+    @keyframes fadeInLeft {
+      from { opacity: 0; transform: translateX(-50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
 
-    /* Responsive Design */
+    /* Responsive */
     @media (max-width: 768px) {
-      .container {
-        padding: 20px;
-        margin-left: 10px;
-        margin-right: 10px;
+      .hero {
+        flex-direction: column;
+        text-align: center;
       }
-
-      .content-title {
+      .hero-text {
+        padding-right: 0;
+      }
+      .hero img {
+        margin-top: 30px;
+      }
+      .hero-text h1 {
         font-size: 36px;
-        line-height: 40px;
       }
-
-      .content {
-        font-size: 18px;
+      .stats {
+        flex-direction: column;
+        gap: 20px;
       }
-
-      .prediction-button {
-        font-size: 18px;
-        padding: 15px 25px;
-      }
-
-      .details-title {
-        font-size: 26px;
-      }
-
-      .details-content {
-        font-size: 18px;
-      }
-      .arrow-list {
-    width: fit-content;
-     }
-
-     .arrow-list li {
-    font-size: 18px;
-    width: 220px; /* Adjust width for smaller screens */
-  }
-    }
-
-    @media (max-width: 480px) {
-      .container {
-        padding: 15px;
-      }
-
-      .content-title {
-        font-size: 28px;
-      }
-
-      .content {
-        font-size: 16px;
-      }
-
-      .prediction-button {
-        font-size: 16px;
-        padding: 12px 20px;
-      }
-
-      .details-title {
-        font-size: 22px;
-      }
-
-      .details-content {
-        font-size: 16px;
-      }
-      .arrow-list {
-    width: 100%;
-  }
-  .arrow-list li {
-    font-size: 16px;
-    width: 200px; /* Further adjustment for mobile devices */
-  }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <p class="title">Loan Risk Prediction</p>
+    <div class="logo">Loan Risk Prediction</div>
+    <nav>
+      <a href="#how">How It Works</a>
+      <a href="#stats">Stats</a>
+      <a href="#contact">Contact</a>
+    </nav>
   </header>
 
-  <div class="container">
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Smarter Loan Approvals with AI</h1>
+      <p>
+        Predict loan approvals with accuracy and speed. 
+        Our AI-powered solution helps banks and financial institutions make 
+        better, data-driven decisions, reducing risk and improving efficiency.
+      </p>
+      <button class="btn-primary" onclick="window.location.href='/form'">
+        Get Loan Prediction
+      </button>
+    </div>
+    <img src="https://cdn-icons-png.flaticon.com/512/2910/2910768.png" alt="AI Loan Illustration">
+  </section>
+
+  <section class="section" id="how">
+    <h2>How It Works</h2>
+    <div class="cards">
       <div class="card">
-          <p class='content-title'>Unlock Smarter Loan Approvals with AI</p>
-          <p class='content'>
-            Welcome to our Loan Prediction Machine Learning Project, where we leverage the power of artificial intelligence to predict loan approvals with accuracy and speed. Whether you’re a bank, loan provider, or financial institution, our AI-driven solution helps make informed decisions, reducing risk and improving loan approval processes.
-          </p>
-          <div class='prediction-button-container'>
-             <button class='prediction-button' onclick="window.location.href='/form'">Get Loan Prediction</button>
-          </div>
+        <h3>Income & Employment</h3>
+        <p>Analyze income stability and job history to determine repayment ability.</p>
       </div>
-  </div>
+      <div class="card">
+        <h3>Credit History</h3>
+        <p>Evaluate past credit scores, repayments, and defaults to assess credibility.</p>
+      </div>
+      <div class="card">
+        <h3>Loan Details</h3>
+        <p>Consider loan amount, purpose, and tenure for balanced risk prediction.</p>
+      </div>
+      <div class="card">
+        <h3>Previous Repayments</h3>
+        <p>Check previous loan repayment behavior to forecast future trends.</p>
+      </div>
+    </div>
+  </section>
 
-  <div class="details">
-    <p class="details-title">How It Works</p>
-    <p class="details-content">Our loan prediction model uses advanced machine learning algorithms to analyze a variety of factors that influence loan approval, such as:</p>
-    <ul class="arrow-list">
-        <li>Income & Employment Status</li>
-        <li>Loan Amount</li>
-        <li>Credit Score & History</li>
-        <li>Loan Purpose</li>
-        <li>Previous Loan Repayments</li>
-    </ul>  
-  </div>
+  <section class="section" id="stats">
+    <h2>Our Impact</h2>
+    <div class="stats">
+      <div class="stat"><span id="accuracy">0</span>% Accuracy <span>Model Precision</span></div>
+      <div class="stat"><span id="processed">0</span>+ Loans <span>Processed</span></div>
+      <div class="stat"><span id="time">0</span>x Faster <span>Approval</span></div>
+    </div>
+  </section>
 
-  <div class="details">
-    <p class="details-title">Ready to Enhance Your Loan Approval System?</p>
-    <p class="details-content">Take the next step towards smarter, more efficient loan processing with our Loan Prediction Machine Learning Model.</p>
-  </div>
+  <section class="section contact" id="contact">
+    <h2>Contact Us</h2>
+    <p>Get in touch to integrate our Loan Risk Prediction model into your system.</p>
+    <form>
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Email Address" required>
+      <textarea rows="4" placeholder="Your Message"></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>Loan Risk Prediction</h3>
+        <p>
+          AI-powered solution to predict loan approvals with accuracy, 
+          speed, and transparency. Helping banks reduce risk 
+          and improve customer experience.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#how">How It Works</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="/form">Prediction Form</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>Email: <a href="mailto:support@loanriskai.com">support@loanriskai.com</a></p>
+        <p>Phone: +91 98765 43210</p>
+        <div class="socials">
+          <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"></a>
+          <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter"></a>
+          <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="LinkedIn"></a>
+          <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="GitHub"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © 2025 Loan Risk Prediction | Built with ❤️ using AI
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const sections = document.querySelectorAll('.section');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
+    sections.forEach(sec => observer.observe(sec));
+
+    // Animated counters
+    function animateCounter(id, target, duration) {
+      let count = 0;
+      const stepTime = Math.abs(Math.floor(duration / target));
+      const el = document.getElementById(id);
+      const timer = setInterval(() => {
+        count++;
+        el.textContent = count;
+        if (count >= target) clearInterval(timer);
+      }, stepTime);
+    }
+
+    window.addEventListener('scroll', () => {
+      const stats = document.getElementById('stats');
+      if (stats.classList.contains('visible') && !stats.classList.contains('counted')) {
+        animateCounter('accuracy', 95, 2000);
+        animateCounter('processed', 1200, 2000);
+        animateCounter('time', 5, 2000);
+        stats.classList.add('counted');
+      }
+    });
+  </script>
 
 </body>
 </html>
