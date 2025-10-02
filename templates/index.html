@@ -19,13 +19,13 @@ body {
   color: #2c3e50;
   line-height: 1.6;
   scroll-behavior: smooth;
-  overflow-x: hidden; /* prevent sideways scroll */
+  overflow-x: hidden; 
 }
 
 /* Header */
 header {
   background: linear-gradient(90deg, #1e3c72, #2a5298);
-  padding: 15px 20px;
+  padding: 20px 60px;
   color: white;
   display: flex;
   align-items: center;
@@ -33,19 +33,21 @@ header {
   position: sticky;
   top: 0;
   z-index: 1000;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
 .logo {
   font-size: 22px;
   font-weight: 700;
+  margin-left: 50px;
 }
 
 nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 50px;
   margin-top: 10px;
+  margin-right: 50px;
 }
 
 nav a {
@@ -63,21 +65,22 @@ nav a:hover {
 /* Hero */
 .hero {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: center; 
+  text-align: center;     
   padding: 60px 8%;
   background: linear-gradient(135deg, #eef5ff, #ffffff);
 }
 
 .hero-text {
-  flex: 1 1 450px;
-  padding-right: 20px;
+  flex: 1 1 50%;
   animation: fadeInLeft 1s ease;
+  max-width: 600px; 
 }
 
 .hero-text h1 {
-  font-size: clamp(28px, 6vw, 48px); /* scales with screen */
+  font-size: clamp(28px, 6vw, 48px);
   font-weight: 700;
   color: #1e3c72;
   margin-bottom: 15px;
@@ -91,14 +94,14 @@ nav a:hover {
 }
 
 .hero img {
-  flex: 1 1 350px;
-  max-width: 90%;
+  flex: 0 0 30%;
+  width: 200px;      
   height: auto;
-  margin: 20px auto 0;
+  margin: 20px auto 0; 
   animation: float 4s ease-in-out infinite;
   display: block;
+  padding-left: 0;    
 }
-
 /* Button */
 .btn-primary {
   padding: 12px 28px;
@@ -322,6 +325,12 @@ footer {
   .hero-text {
     padding-right: 0;
   }
+  header {
+    padding: 15px 30px;
+  }
+   .hero img {
+    display: none;
+  }
 }
 
 /* Mobile */
@@ -340,6 +349,18 @@ footer {
     padding: 15px 20px;
     font-size: 18px;
   }
+  header {
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 20px;
+  }
+  nav {
+    margin-top: 10px;
+    justify-content: center;
+  }
+  .hero img {
+    display: none;
+  }
 }
 
   </style>
@@ -357,7 +378,7 @@ footer {
 
   <section class="hero">
     <div class="hero-text">
-      <h1>Smarter Loan Approvals with AI</h1>
+      <h1>Smart Loan Insights</h1>
       <p>
         Predict loan approvals with accuracy and speed. 
         Our AI-powered solution helps banks and financial institutions make 
